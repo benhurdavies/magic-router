@@ -4,7 +4,7 @@
   "description": "routing patter and high productive  way for bulding mvc/api projects",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node ./test/server.js",
+    "start": "babel-node ./example/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

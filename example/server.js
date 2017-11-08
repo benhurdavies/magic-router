@@ -4,12 +4,10 @@ import http from 'http';
 
 import controllerRouter from '../src/controller-router';
 
-let debug = require('debug')('digital-supply-chain-services:server');
-
 const port = 3000;
 const app = express();
 
-consign({cwd: 'test'})
+consign({cwd: 'example'})
 .include('controllers')
 .into(app);
 
@@ -39,7 +37,6 @@ function onListening() {
     var bind = typeof addr === 'string'
       ? 'pipe ' + addr
       : 'port ' + addr.port;
-    debug('Listening on ' + bind);
     console.log('Listening on ' + addr.toString());
   }
 
