@@ -1,92 +1,141 @@
+'use strict';
+
+import loadFile from './loadFile';
+import caller from './caller';
+
 const ROUTER_NAME = 'router';
 const TYPE_NAME = 'type';
 const BEFORE_CONTROLLER_NAME = 'beforeController';
 const BEFORE_ACTION_NAME = 'beforeAction';
 
-export default (controllerName, handler, app) => {
-  if (typeof handler !== 'object') {
-    throw Error('Expected an object');
+class controllerRouter {
+  constructor() {
+    this.defaultOptions = {
+      dirPath: '',
+    };
+    this.options = null;
+    this.app = null;
   }
 
-  for (let _module in handler) {
-    // adding before controller middlewares to routing
-    addBeforeControllers(handler[_module], controllerName, app);
+  addAll(app, options) {
+    this.app = app;
+    //setting options
+    let cwd = process.cwd();
+    this.options = {
+      ...this.defaultOptions,
+      ...options,
+      callerPath: caller(1),
+    };
+    //loading controller files
+    let pathInfo = loadFile(
+      this.app,
+      this.options.dirPath,
+      this.options.callerPath
+    );
+    //adding router.
+    this.addRouters(pathInfo.dir);
+  }
 
-    for (let property in handler[_module]) {
-      if (typeof handler[_module][property] === 'function') {
-        let methodRoute = getRouterConfig(handler[_module], property);
-        let requestType = getRequestType(handler[_module], property);
-        let fullRoute = `/${controllerName}/${methodRoute}`;
+  addRouters(appNameSpace) {
+    // dynamically include routes (Controller)
+    Object.keys(this.app[appNameSpace]).forEach(controllerKey => {
+      this.doRoute(
+        controllerKey,
+        this.app.controllers[controllerKey],
+        this.app
+      );
+    });
+  }
 
-        //adding before Action middlewares to routing
-        addBeforeActions(handler[_module], property, fullRoute, app);
+  doRoute(controllerName, handler, app) {
+    if (typeof handler !== 'object') {
+      throw Error('Expected an object');
+    }
 
-        // adding current method routing
-        app[requestType](fullRoute, (req, res, next) => {
-          handler[_module][property](req, res, next);
-        });
+    for (let _module in handler) {
+      // adding before controller middlewares to routing
+      this.addBeforeControllers(handler[_module], controllerName, app);
+
+      for (let property in handler[_module]) {
+        if (typeof handler[_module][property] === 'function') {
+          let methodRoute = this.getRouterConfig(handler[_module], property);
+          let requestType = this.getRequestType(handler[_module], property);
+          let fullRoute = `/${controllerName}/${methodRoute}`;
+
+          //adding before Action middlewares to routing
+          this.addBeforeActions(handler[_module], property, fullRoute, app);
+
+          // adding current method routing
+          app[requestType](fullRoute, (req, res, next) => {
+            handler[_module][property](req, res, next);
+          });
+        }
       }
     }
   }
-};
 
-function getPropertyFromHandler(handler, methodName, optionKey) {
-  let value = null;
-  if (
-    handler.hasOwnProperty(optionKey) &&
-    typeof handler[optionKey] === 'object'
-  ) {
-    if (handler[optionKey].hasOwnProperty(methodName))
-      value = handler[optionKey][methodName];
+  getPropertyFromHandler(handler, methodName, optionKey) {
+    let value = null;
+    if (
+      handler.hasOwnProperty(optionKey) &&
+      typeof handler[optionKey] === 'object'
+    ) {
+      if (handler[optionKey].hasOwnProperty(methodName))
+        value = handler[optionKey][methodName];
+    }
+    return value;
   }
-  return value;
-}
 
-function getRouterConfig(handler, methodName) {
-  let routePath = getPropertyFromHandler(handler, methodName, ROUTER_NAME);
-  routePath = routePath ? routePath : methodName;
-  return routePath;
-}
-
-function getRequestType(handler, methodName) {
-  let type = RequestType.getRequestType(
-    getPropertyFromHandler(handler, methodName, TYPE_NAME)
-  );
-  return type;
-}
-
-function addBeforeControllers(handler, controllerName, app) {
-  let beforeControllers = getBeforeControllers(handler);
-  beforeControllers.forEach(method => {
-    app.use(`/${controllerName}`, (req, res, next) => {
-      method(req, res, next);
-    });
-  });
-}
-
-function getBeforeControllers(handler) {
-  let beforeControllers = [];
-  if (
-    handler.hasOwnProperty(BEFORE_CONTROLLER_NAME) &&
-    Array.isArray(handler[BEFORE_CONTROLLER_NAME])
-  ) {
-    beforeControllers = handler[BEFORE_CONTROLLER_NAME];
+  getRouterConfig(handler, methodName) {
+    let routePath = this.getPropertyFromHandler(
+      handler,
+      methodName,
+      ROUTER_NAME
+    );
+    routePath = routePath ? routePath : methodName;
+    return routePath;
   }
-  return beforeControllers;
-}
 
-function addBeforeActions(handler, methodName, route, app) {
-  let beforeAction = getPropertyFromHandler(
-    handler,
-    methodName,
-    BEFORE_ACTION_NAME
-  );
-  if (beforeAction && Array.isArray(beforeAction)) {
-    beforeAction.forEach(method => {
-      app.use(route, (req, res, next) => {
+  getRequestType(handler, methodName) {
+    let type = RequestType.getRequestType(
+      this.getPropertyFromHandler(handler, methodName, TYPE_NAME)
+    );
+    return type;
+  }
+
+  addBeforeControllers(handler, controllerName, app) {
+    let beforeControllers = this.getBeforeControllers(handler);
+    beforeControllers.forEach(method => {
+      app.use(`/${controllerName}`, (req, res, next) => {
         method(req, res, next);
       });
     });
+  }
+
+  getBeforeControllers(handler) {
+    let beforeControllers = [];
+    if (
+      handler.hasOwnProperty(BEFORE_CONTROLLER_NAME) &&
+      Array.isArray(handler[BEFORE_CONTROLLER_NAME])
+    ) {
+      beforeControllers = handler[BEFORE_CONTROLLER_NAME];
+    }
+    return beforeControllers;
+  }
+
+  addBeforeActions(handler, methodName, route, app) {
+    let beforeAction = this.getPropertyFromHandler(
+      handler,
+      methodName,
+      BEFORE_ACTION_NAME
+    );
+    if (beforeAction && Array.isArray(beforeAction)) {
+      beforeAction.forEach(method => {
+        app.use(route, (req, res, next) => {
+          method(req, res, next);
+        });
+      });
+    }
   }
 }
 
@@ -132,3 +181,5 @@ class RequestType {
     }
   }
 }
+
+export default (controllerRouter = new controllerRouter());
