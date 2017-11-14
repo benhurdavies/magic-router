@@ -2,10 +2,12 @@
   "name": "controller-router",
   "version": "1.0.0",
   "description": "routing patter and high productive  way for bulding mvc/api projects",
-  "main": "index.js",
+  "main": "./distribution/src/controller-router.js",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
     "precommit": "lint-staged",
+    "build": "rimraf /distribution && babel ./src --out-dir distribution/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "prepublish": "npm run build",
     "start": "babel-node ./example/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
