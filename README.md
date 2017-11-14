@@ -1,7 +1,14 @@
-# controller-router
+# magic-router
 
+Simplify the MVC/api application routing pattern.
 
-### Guidelines
+### Installation
+
+```javascript
+npm install --save magic-router
+```
+
+### API Guidelines
 
 All the controllers in the controller folder are loaded using the consign package and the default routes are configured automatically using the controller-router.
 
