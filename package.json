@@ -1,6 +1,6 @@
 {
   "name": "magic-router",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "routing patter and high productive  way for bulding mvc/api projects",
   "main": "./distribution/src/magic-router.js",
   "scripts": {
