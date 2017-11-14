@@ -1,6 +1,6 @@
 # magic-router
 
-Simplify the MVC/api application routing pattern.
+Simplify the MVC/api applications routing.
 
 ### Installation
 
