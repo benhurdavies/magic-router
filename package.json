@@ -1,8 +1,8 @@
 {
-  "name": "controller-router",
+  "name": "magic-router",
   "version": "1.0.0",
   "description": "routing patter and high productive  way for bulding mvc/api projects",
-  "main": "./distribution/src/controller-router.js",
+  "main": "./distribution/src/magic-router.js",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
     "precommit": "lint-staged",
@@ -47,8 +47,10 @@
     "controller-router",
     "controller",
     "resource-router",
-    "resource-router-middleware"
+    "resource-router-middleware",
+    "magic-router",
+    "magicRouter"
   ],
-  "author": "Benhur",
+  "author": "Benhur Davies",
   "license": "MIT"
 }

@@ -2,13 +2,13 @@ import express from 'express';
 import consign from 'consign';
 import http from 'http';
 
-import controllerRouter from '../src/controller-router';
+import magicRouter from '../src/magic-router';
 
 const port = 3000;
 const app = express();
 
 // adding contollers..
-controllerRouter.addAll(app, { dirPath: './controllers' });
+magicRouter.addAll(app, { dirPath: './controllers' });
 
 app.get('*', function(req, res) {
   res.send('App started');
