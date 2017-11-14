@@ -8,7 +8,7 @@ const TYPE_NAME = 'type';
 const BEFORE_CONTROLLER_NAME = 'beforeController';
 const BEFORE_ACTION_NAME = 'beforeAction';
 
-class controllerRouter {
+class magicRouter {
   constructor() {
     this.defaultOptions = {
       dirPath: '',
@@ -182,4 +182,4 @@ class RequestType {
   }
 }
 
-export default (controllerRouter = new controllerRouter());
+export default (magicRouter = new magicRouter());
