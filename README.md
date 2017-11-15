@@ -15,10 +15,10 @@ All the controllers in the controller folder are loaded using the consign packag
 From app.js
 ```javascript 
 
-import controllerRouter from 'controller-router';
+import magicRouter from 'magic-router';
 
 // adding contollers..
-controllerRouter.addAll(app, { dirPath: './controllers' });
+magicRouter.addAll(app, { dirPath: './controllers' });
 
 ```
 
