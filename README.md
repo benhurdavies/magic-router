@@ -17,7 +17,7 @@ From app.js
 
 import magicRouter from 'magic-router';
 
-// adding contollers..
+//adding all contollers..
 magicRouter.addAll(app, { dirPath: './controllers' });
 
 ```
