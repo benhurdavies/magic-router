@@ -35,6 +35,10 @@
   "peerDependencies": {
     "express": "^4.12.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benhurdavies/magic-router.git"
+  },
   "keywords": [
     "api",
     "mvc",
