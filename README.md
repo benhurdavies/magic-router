@@ -10,7 +10,9 @@ npm install --save magic-router
 
 ### API Guidelines
 
-All the controllers in the controller folder are loaded using the consign package and the default routes are configured automatically using the controller-router.
+All the controllers in the controller folder are loaded and the default routes are configured automatically by the magic-router.
+
+> The default router will be : Hostname/controller(controller filename without extension)/action(method name)
 
 From app.js
 ```javascript 
