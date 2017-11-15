@@ -1,8 +1,8 @@
 {
   "name": "magic-router",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "routing pattern and high productive way for bulding mvc/api projects",
-  "main": "./distribution/src/magic-router.js",
+  "main": "./distribution/magic-router.js",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
     "precommit": "lint-staged",
