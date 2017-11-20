@@ -78,9 +78,6 @@ class magicRouter {
             handler[_module][property],
             app
           );
-          // app[requestType](fullRoute, (req, res, next) => {
-          //   handler[_module][property](req, res, next);
-          // });
         }
       }
     }
@@ -129,9 +126,6 @@ class magicRouter {
     let beforeControllers = this.getBeforeControllers(handler);
     beforeControllers.forEach(method => {
       this._addRoute(RequestType.USE(), `/${controllerName}`, method, app);
-      // app.use(`/${controllerName}`, (req, res, next) => {
-      //   method(req, res, next);
-      // });
     });
   }
 
@@ -155,9 +149,6 @@ class magicRouter {
     if (beforeAction && Array.isArray(beforeAction)) {
       beforeAction.forEach(method => {
         this._addRoute(requestType, route, method, app);
-        // app.use(route, (req, res, next) => {
-        //   method(req, res, next);
-        // });
       });
     }
   }

@@ -15,14 +15,21 @@ All the controllers in the controller folder are loaded and the default routes a
 > The default router will be : Hostname/controller(controller filename without extension)/action(method name)
 
 From app.js
-```javascript 
 
+```javascript
+import express from 'express';
+const app = express();
+```
+....
+.....
+```javascript 
 import magicRouter from 'magic-router';
 
 //adding all contollers..
 magicRouter.addAll(app, { dirPath: './controllers' });
 
 ```
+* Usage [example](./example) 
 
 The developers need to focus only on the controllers.
 
@@ -86,3 +93,14 @@ export default {
 Everything except the action methods are optional and you need to write 
 those only if you need to override the default behaviors.
 
+### Release version
+
+#### 1.0.6 : Initial release
+* Basic structure of routing and it's implementation.
+* Feature for adding multiple middileware/methods before route enter into controller. Define the same in _beforeController: [method1,method2,..]_ at controller files/object.
+* Feature for adding multiple middileware/methods before route enter into action. Define the same in _beforeAction: {actionName1:[method1,method2,..],...}_ at controller files/object.
+* Adding all controller files in an directory for magic-routering.
+
+### 1.0.7 : Exception handling
+* All action methods in controller are exception handled, If any exception caused inside an action, Error will forewarded automatically to (_next(err);_) outside/global (app.js) error hooked methods. The implemented at [example](./example).
+* Added [test](./test) for testing the framework.
