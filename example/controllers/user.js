@@ -1,7 +1,7 @@
-import logger from '../middleware/logger';
+import { controllerLogger, actionLogger } from '../middleware/logger';
 
 export default {
-  beforeController: [logger],
+  beforeController: [controllerLogger],
 
   router: {
     getUser: 'get/:id',
@@ -11,11 +11,18 @@ export default {
     get: 'get',
   },
 
-  get(req, res) {
-    res.send('hello world');
+  beforeAction: {
+    getUser: [actionLogger],
   },
 
+  // this method can access by /user/get
+  get(req, res) {
+    res.send({ msg: 'hello user', name: 'user' });
+  },
+
+  // can access by /user/get/:id => eg: /user/get/5
   getUser(req, res) {
-    res.send('The user is : ' + req.params['id']);
+    const id = parseInt(req.params['id'], 10);
+    res.send({ id, name: `user:${id}` });
   },
 };

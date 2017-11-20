@@ -63,14 +63,36 @@ class magicRouter {
           let fullRoute = `/${controllerName}/${methodRoute}`;
 
           //adding before Action middlewares to routing
-          this.addBeforeActions(handler[_module], property, fullRoute, app);
+          this.addBeforeActions(
+            handler[_module],
+            property,
+            fullRoute,
+            requestType,
+            app
+          );
 
           // adding current method routing
-          app[requestType](fullRoute, (req, res, next) => {
-            handler[_module][property](req, res, next);
-          });
+          this._addRoute(
+            requestType,
+            fullRoute,
+            handler[_module][property],
+            app
+          );
+          // app[requestType](fullRoute, (req, res, next) => {
+          //   handler[_module][property](req, res, next);
+          // });
         }
       }
+    }
+  }
+
+  _addRoute(requestType, routePath, HandllerMethod, app) {
+    try {
+      app[requestType](routePath, (req, res, next) => {
+        HandllerMethod(req, res, next);
+      });
+    } catch (err) {
+      next(err);
     }
   }
 
@@ -106,9 +128,10 @@ class magicRouter {
   addBeforeControllers(handler, controllerName, app) {
     let beforeControllers = this.getBeforeControllers(handler);
     beforeControllers.forEach(method => {
-      app.use(`/${controllerName}`, (req, res, next) => {
-        method(req, res, next);
-      });
+      this._addRoute(RequestType.USE(), `/${controllerName}`, method, app);
+      // app.use(`/${controllerName}`, (req, res, next) => {
+      //   method(req, res, next);
+      // });
     });
   }
 
@@ -123,7 +146,7 @@ class magicRouter {
     return beforeControllers;
   }
 
-  addBeforeActions(handler, methodName, route, app) {
+  addBeforeActions(handler, methodName, route, requestType, app) {
     let beforeAction = this.getPropertyFromHandler(
       handler,
       methodName,
@@ -131,9 +154,10 @@ class magicRouter {
     );
     if (beforeAction && Array.isArray(beforeAction)) {
       beforeAction.forEach(method => {
-        app.use(route, (req, res, next) => {
-          method(req, res, next);
-        });
+        this._addRoute(requestType, route, method, app);
+        // app.use(route, (req, res, next) => {
+        //   method(req, res, next);
+        // });
       });
     }
   }
