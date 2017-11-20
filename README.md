@@ -1,8 +1,12 @@
 # magic-router
 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/benhurdavies/magic-router)
+<div align="center">
 
 [![Build Status](https://travis-ci.org/benhurdavies/magic-router.png?branch=master)](https://travis-ci.org/benhurdavies/magic-router)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/benhurdavies/magic-router)
+[![HitCount](http://hits.dwyl.io/benhurdavies/benhurdavies/magic-router.svg)](http://hits.dwyl.io/benhurdavies/benhurdavies/magic-router)
+
+</div>
 
 Simplify the MVC/api applications routing.
 
