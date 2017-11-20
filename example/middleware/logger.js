@@ -1,4 +1,9 @@
-export default (req, res, next) => {
-  console.log(`logger (${new Date()}) : ${req.originalUrl}`);
+export const controllerLogger = (req, res, next) => {
+  res.setHeader('beforeController', 'controllerLogger1');
+  next();
+};
+
+export const actionLogger = (req, res, next) => {
+  res.setHeader('actionController', 'actionLogger1');
   next();
 };

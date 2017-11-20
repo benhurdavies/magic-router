@@ -29,3 +29,6 @@ node_modules
 
 # remove example from publishing
 example
+
+# remove test from publishing
+test

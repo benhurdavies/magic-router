@@ -14,6 +14,15 @@ app.get('*', function(req, res) {
   res.send('App started');
 });
 
+//error handling
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({
+    errorMessage: err.message,
+    error: err,
+  });
+});
+
 var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
