@@ -1,5 +1,7 @@
 # magic-router
 
+[![Build Status](https://travis-ci.org/benhurdavies/magic-router.png?branch=master)](https://travis-ci.org/benhurdavies/magic-router)
+
 Simplify the MVC/api applications routing.
 
 ### Installation
