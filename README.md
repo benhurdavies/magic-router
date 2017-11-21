@@ -103,10 +103,13 @@ those only if you need to override the default behaviors.
 
 ### Screenshots
 
+> Get user
 ![Alt text](./Readme/user_get.png "Get user")
 
+> Get user with id
 ![Alt text](./Readme/user_get_id.png "Get user with id")
 
+> Get user with invalid id - exception handling
 ![Alt text](./Readme/user_get_invalidId.png "Get user with invalid id - exception handling")
 
 ### Release version
