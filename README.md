@@ -101,6 +101,14 @@ export default {
 Everything except the action methods are optional and you need to write 
 those only if you need to override the default behaviors.
 
+### Screenshots
+
+![Alt text](./Readme/user_get.png "Get user")
+
+![Alt text](./Readme/user_get_id.png "Get user with id")
+
+![Alt text](./Readme/user_get_invalidId.png "Get user with invalid id - exception handling")
+
 ### Release version
 
 #### 1.0.7 : Exception handling

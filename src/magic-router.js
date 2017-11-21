@@ -24,6 +24,9 @@ class magicRouter {
     this.options = {
       ...this.defaultOptions,
       ...options,
+      //if you are creating an npm module with magic router as an internal module,
+      //please pass the relative path of the controllers of the applicaiton that consumes your module
+      //eg: magicRouter.addAll(app, { dirPath: './controllers' });
       callerPath: caller(1),
     };
     //loading controller files
@@ -83,10 +86,10 @@ class magicRouter {
     }
   }
 
-  _addRoute(requestType, routePath, HandllerMethod, app) {
+  _addRoute(requestType, routePath, HandlerMethod, app) {
     try {
       app[requestType](routePath, (req, res, next) => {
-        HandllerMethod(req, res, next);
+        HandlerMethod(req, res, next);
       });
     } catch (err) {
       next(err);
