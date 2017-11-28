@@ -131,7 +131,7 @@ those only if you need to override the default behaviors.
 
 ### Release version
 
-### 1.0.7 : Exclude controller files
+#### 1.0.8 : Exclude controller files
 * Feature to exclude some controller files from magic-routering. 
 * Logging the router details.
 
