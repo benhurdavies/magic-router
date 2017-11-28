@@ -51,7 +51,7 @@ magicRouter.addAll(app, { dirPath: './controllers' });
     exclude: ['../../example/controllers/auth.js'],
   });
 ```
-* Usage in [exclude file test](./blob/d1e20a4b67224f92e16a2188af049a194ad59866/test/example/excludeFiles.js#L77)
+* Usage in [exclude file test](https://github.com/benhurdavies/magic-router/blob/d1e20a4b67224f92e16a2188af049a194ad59866/test/example/excludeFiles.js#L77)
 
 The developers need to focus only on the controllers.
 
