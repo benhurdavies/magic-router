@@ -40,7 +40,7 @@ import magicRouter from 'magic-router';
 magicRouter.addAll(app, { dirPath: './controllers' });
 
 ```
-* Usage [example](./example) 
+* Usage in [example](./example) 
 
 ##### Exclude some controller files from magic-routering
 
@@ -51,6 +51,7 @@ magicRouter.addAll(app, { dirPath: './controllers' });
     exclude: ['../../example/controllers/auth.js'],
   });
 ```
+* Usage in [exclude file test](./blob/d1e20a4b67224f92e16a2188af049a194ad59866/test/example/excludeFiles.js#L77)
 
 The developers need to focus only on the controllers.
 
@@ -132,7 +133,7 @@ those only if you need to override the default behaviors.
 
 ### 1.0.7 : Exclude controller files
 * Feature to exclude some controller files from magic-routering. 
-* Logging the router details
+* Logging the router details.
 
 #### 1.0.7 : Exception handling
 * All action methods in controller are exception handled, If any exception caused inside an action, Error will forewarded automatically to (_next(err);_) outside/global (app.js) error hooked methods. The implemented at [example](./example).
