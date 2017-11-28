@@ -1,11 +1,13 @@
 import express from 'express';
-import consign from 'consign';
 import http from 'http';
+import bodyParser from 'body-parser';
 
 import magicRouter from '../src/magic-router';
 
 const port = 3000;
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // adding contollers..
 magicRouter.addAll(app, { dirPath: './controllers' });

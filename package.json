@@ -1,6 +1,6 @@
 {
   "name": "magic-router",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "routing pattern and high productive way for bulding mvc/api projects",
   "main": "./distribution/magic-router.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
+    "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "eslint": "^4.11.0",
@@ -59,5 +60,9 @@
     "magicRouter"
   ],
   "author": "Benhur Davies",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
 }

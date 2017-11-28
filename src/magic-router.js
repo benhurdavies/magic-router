@@ -1,7 +1,11 @@
 'use strict';
 
+import path from 'path';
+
 import loadFile from './loadFile';
 import caller from './caller';
+
+const pack = require(path.join(__dirname, '..', 'package'));
 
 const ROUTER_NAME = 'router';
 const TYPE_NAME = 'type';
@@ -12,6 +16,7 @@ class magicRouter {
   constructor() {
     this.defaultOptions = {
       dirPath: '',
+      exclude: [],
     };
     this.options = null;
     this.app = null;
@@ -19,24 +24,24 @@ class magicRouter {
 
   addAll(app, options) {
     this.app = app;
+    this.makeOptions(options);
+    //loading controller files
+    let pathInfo = loadFile(this.app, this.options);
+    //adding router.
+    console.log(`${pack.name} v${pack.version} Initialized`);
+    this.addRouters(pathInfo.dir);
+  }
+
+  makeOptions(options) {
     //setting options
-    let cwd = process.cwd();
     this.options = {
       ...this.defaultOptions,
       ...options,
       //if you are creating an npm module with magic router as an internal module,
       //please pass the relative path of the controllers of the applicaiton that consumes your module
       //eg: magicRouter.addAll(app, { dirPath: './controllers' });
-      callerPath: caller(1),
+      callerPath: caller(2),
     };
-    //loading controller files
-    let pathInfo = loadFile(
-      this.app,
-      this.options.dirPath,
-      this.options.callerPath
-    );
-    //adding router.
-    this.addRouters(pathInfo.dir);
   }
 
   addRouters(appNameSpace) {
@@ -75,6 +80,7 @@ class magicRouter {
           );
 
           // adding current method routing
+          console.log(`+ ${fullRoute}`);
           this._addRoute(
             requestType,
             fullRoute,
@@ -87,13 +93,13 @@ class magicRouter {
   }
 
   _addRoute(requestType, routePath, HandlerMethod, app) {
-    try {
-      app[requestType](routePath, (req, res, next) => {
+    app[requestType](routePath, (req, res, next) => {
+      try {
         HandlerMethod(req, res, next);
-      });
-    } catch (err) {
-      next(err);
-    }
+      } catch (err) {
+        next(err);
+      }
+    });
   }
 
   getPropertyFromHandler(handler, methodName, optionKey) {
@@ -127,8 +133,10 @@ class magicRouter {
 
   addBeforeControllers(handler, controllerName, app) {
     let beforeControllers = this.getBeforeControllers(handler);
-    beforeControllers.forEach(method => {
-      this._addRoute(RequestType.USE(), `/${controllerName}`, method, app);
+    beforeControllers.forEach((method, key) => {
+      let routePath = `/${controllerName}`;
+      console.log(`+ beforeControllers(${key}) => ${routePath}`);
+      this._addRoute(RequestType.USE(), routePath, method, app);
     });
   }
 
@@ -150,7 +158,8 @@ class magicRouter {
       BEFORE_ACTION_NAME
     );
     if (beforeAction && Array.isArray(beforeAction)) {
-      beforeAction.forEach(method => {
+      beforeAction.forEach((method, key) => {
+        console.log(`+ beforeAction(${key}) => ${route}`);
         this._addRoute(requestType, route, method, app);
       });
     }
