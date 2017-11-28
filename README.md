@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/benhurdavies/magic-router.png?branch=master)](https://travis-ci.org/benhurdavies/magic-router)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/benhurdavies/magic-router)
 [![HitCount](http://hits.dwyl.io/benhurdavies/benhurdavies/magic-router.svg)](http://hits.dwyl.io/benhurdavies/benhurdavies/magic-router)
+[![GitHub license](https://img.shields.io/github/license/benhurdavies/magic-router.svg?style=plastic)](https://github.com/benhurdavies/magic-router/blob/master/LICENSE)
 
 </div>
 
@@ -34,10 +35,22 @@ const app = express();
 import magicRouter from 'magic-router';
 
 //adding all contollers..
+
+// magicRouter.addAll(express_app_instance, options);
 magicRouter.addAll(app, { dirPath: './controllers' });
 
 ```
 * Usage [example](./example) 
+
+##### Exclude some controller files from magic-routering
+
+```javascript
+  magicRouter.addAll(app, {
+    dirPath: '../../example/controllers',
+    // excluding files
+    exclude: ['../../example/controllers/auth.js'],
+  });
+```
 
 The developers need to focus only on the controllers.
 
@@ -116,6 +129,10 @@ those only if you need to override the default behaviors.
 ![Alt text](./Readme/user_get_invalidId.png "Get user with invalid id - exception handling")
 
 ### Release version
+
+### 1.0.7 : Exclude controller files
+* Feature to exclude some controller files from magic-routering. 
+* Logging the router details
 
 #### 1.0.7 : Exception handling
 * All action methods in controller are exception handled, If any exception caused inside an action, Error will forewarded automatically to (_next(err);_) outside/global (app.js) error hooked methods. The implemented at [example](./example).
