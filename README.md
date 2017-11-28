@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/benhurdavies/magic-router.png?branch=master)](https://travis-ci.org/benhurdavies/magic-router)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/benhurdavies/magic-router)
 [![HitCount](http://hits.dwyl.io/benhurdavies/benhurdavies/magic-router.svg)](http://hits.dwyl.io/benhurdavies/benhurdavies/magic-router)
-[![GitHub license](https://img.shields.io/github/license/benhurdavies/magic-router.svg?style=plastic)](https://github.com/benhurdavies/magic-router/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/benhurdavies/magic-router.svg)](https://github.com/benhurdavies/magic-router/blob/master/LICENSE)
 
 </div>
 
