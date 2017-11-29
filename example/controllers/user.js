@@ -1,6 +1,9 @@
 import { controllerLogger, actionLogger } from '../middleware/logger';
 import { throws } from 'assert';
 
+// this works only in es6
+// in es5 exports.default = { ..
+// module.exports = { .. } will not work
 export default {
   beforeController: [controllerLogger],
 
