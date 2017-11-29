@@ -131,6 +131,13 @@ those only if you need to override the default behaviors.
 
 ### Release version
 
+#### 1.0.9 : Default index router
+* Automatically/default add router for "index" action. eg: invoke index method in controller by
+```javascript
+`${host}/${controllerName}`
+`${host}/${controllerName}/${index}`
+```
+
 #### 1.0.8 : Exclude controller files
 * Feature to exclude some controller files from magic-routering. 
 * Logging the router details.
