@@ -11,6 +11,7 @@ const ROUTER_NAME = 'router';
 const TYPE_NAME = 'type';
 const BEFORE_CONTROLLER_NAME = 'beforeController';
 const BEFORE_ACTION_NAME = 'beforeAction';
+const DEFAULT_CONTROLLER_ROUTE_METHOD = 'index';
 
 class magicRouter {
   constructor() {
@@ -20,6 +21,7 @@ class magicRouter {
     };
     this.options = null;
     this.app = null;
+    this.addDefaultIndexRoutes = this.addDefaultIndexRoutes.bind(this);
   }
 
   addAll(app, options) {
@@ -64,6 +66,8 @@ class magicRouter {
       // adding before controller middlewares to routing
       this.addBeforeControllers(handler[_module], controllerName, app);
 
+      let methodsRunAfter = [];
+
       for (let property in handler[_module]) {
         if (typeof handler[_module][property] === 'function') {
           let methodRoute = this.getRouterConfig(handler[_module], property);
@@ -87,8 +91,23 @@ class magicRouter {
             handler[_module][property],
             app
           );
+
+          //index default routing
+          methodsRunAfter.push({
+            method: this.addDefaultIndexRoutes,
+            args: [
+              controllerName,
+              methodRoute,
+              requestType,
+              handler[_module][property],
+              app,
+            ],
+          });
         }
       }
+      methodsRunAfter.forEach(_method => {
+        _method.method(..._method.args);
+      });
     }
   }
 
@@ -100,6 +119,22 @@ class magicRouter {
         next(err);
       }
     });
+  }
+
+  addDefaultIndexRoutes(
+    controllerName,
+    methodName,
+    requestType,
+    HandlerMethod,
+    app
+  ) {
+    if (
+      methodName.toLowerCase() === DEFAULT_CONTROLLER_ROUTE_METHOD.toLowerCase()
+    ) {
+      let routePath = `/${controllerName}`;
+      console.log(`+ defaultIndexRoute => ${routePath}`);
+      this._addRoute(requestType, routePath, HandlerMethod, app);
+    }
   }
 
   getPropertyFromHandler(handler, methodName, optionKey) {

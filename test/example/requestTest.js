@@ -35,4 +35,26 @@ describe('route URL test', () => {
       done();
     });
   });
+
+  it('/user for default index routing', done => {
+    _req.get('/user').end((err, res) => {
+      res.should.have.status(200);
+      res.body[0].id.should.equal(1);
+      res.body[1].id.should.equal(2);
+      // checking beforeController worked or not
+      res.header.beforecontroller.should.equal('controllerLogger1');
+      done();
+    });
+  });
+
+  it('/user/index for default index routing', done => {
+    _req.get('/user/index').end((err, res) => {
+      res.should.have.status(200);
+      res.body[0].id.should.equal(1);
+      res.body[1].id.should.equal(2);
+      // checking beforeController worked or not
+      res.header.beforecontroller.should.equal('controllerLogger1');
+      done();
+    });
+  });
 });

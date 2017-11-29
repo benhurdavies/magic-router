@@ -16,6 +16,13 @@ export default {
     getUser: [actionLogger],
   },
 
+  // can access by => /user
+  // also can access by /user/index
+  // index method in controller have default routing.
+  index(req, res) {
+    res.send([{ id: 1, name: 'user1' }, { id: 2, name: 'user2' }]);
+  },
+
   // this method can access by /user/get
   get(req, res) {
     res.send({ msg: 'hello user', name: 'user' });
