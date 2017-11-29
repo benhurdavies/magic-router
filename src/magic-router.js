@@ -66,7 +66,7 @@ class magicRouter {
       // adding before controller middlewares to routing
       this.addBeforeControllers(handler[_module], controllerName, app);
 
-      let methodsRunAfter = [];
+      let additionalRoutes = [];
 
       for (let property in handler[_module]) {
         if (typeof handler[_module][property] === 'function') {
@@ -93,19 +93,24 @@ class magicRouter {
           );
 
           //index default routing
-          methodsRunAfter.push({
-            method: this.addDefaultIndexRoutes,
-            args: [
-              controllerName,
-              methodRoute,
-              requestType,
-              handler[_module][property],
-              app,
-            ],
-          });
+          if (
+            methodRoute.toLowerCase() ===
+            DEFAULT_CONTROLLER_ROUTE_METHOD.toLowerCase()
+          ) {
+            additionalRoutes.push({
+              method: this.addDefaultIndexRoutes,
+              args: [
+                controllerName,
+                methodRoute,
+                requestType,
+                handler[_module][property],
+                app,
+              ],
+            });
+          }
         }
       }
-      methodsRunAfter.forEach(_method => {
+      additionalRoutes.forEach(_method => {
         _method.method(..._method.args);
       });
     }
@@ -128,13 +133,9 @@ class magicRouter {
     HandlerMethod,
     app
   ) {
-    if (
-      methodName.toLowerCase() === DEFAULT_CONTROLLER_ROUTE_METHOD.toLowerCase()
-    ) {
-      let routePath = `/${controllerName}`;
-      console.log(`+ defaultIndexRoute => ${routePath}`);
-      this._addRoute(requestType, routePath, HandlerMethod, app);
-    }
+    let routePath = `/${controllerName}`;
+    console.log(`+ defaultIndexRoute => ${routePath}`);
+    this._addRoute(requestType, routePath, HandlerMethod, app);
   }
 
   getPropertyFromHandler(handler, methodName, optionKey) {
@@ -244,4 +245,4 @@ class RequestType {
   }
 }
 
-export default (magicRouter = new magicRouter());
+module.exports = magicRouter = new magicRouter();
