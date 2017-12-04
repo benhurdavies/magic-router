@@ -17,7 +17,7 @@ const DEFAULT_CONTROLLER_ROUTE_METHOD = 'index';
 class magicRouter {
   constructor() {
     this.defaultOptions = {
-      dirPath: '',
+      dirPath: './controllers',
       exclude: [],
       prefix: '',
     };
