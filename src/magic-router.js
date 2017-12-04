@@ -4,7 +4,7 @@ import path from 'path';
 
 import loadFile from './loadFile';
 import caller from './caller';
-import Helper from './helper';
+import Helper from './utility/Helper';
 
 const pack = require(path.join(__dirname, '..', 'package'));
 
@@ -66,7 +66,7 @@ class magicRouter {
 
     for (let _module in handler) {
       // adding before controller middlewares to routing
-      let prefix = Helper.prefixMaker({ ...this.options });
+      let prefix = Helper.getRoutePrefix({ ...this.options });
       this.addBeforeControllers(
         handler[_module],
         `${prefix}${controllerName}`,
