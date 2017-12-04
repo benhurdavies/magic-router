@@ -4,7 +4,7 @@ import path from 'path';
 
 import loadFile from './loadFile';
 import caller from './caller';
-import Helper from './utility/Helper';
+import Helper from './utility/helper';
 
 const pack = require(path.join(__dirname, '..', 'package'));
 
