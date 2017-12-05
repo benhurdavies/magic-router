@@ -42,6 +42,18 @@ magicRouter.addAll(app, { dirPath: './controllers' });
 ```
 * Usage in [example](./example) 
 
+#### Initializing Opitons
+
+```javascript
+let options = {
+  dirPath:'./controllers', // path of controller directory
+  exclude:[], // optional files path for removing from magic-routering
+  prefix:'', // global prefix for routing
+};
+
+magicRouter.addAll(app, options);
+```
+
 ##### Exclude some controller files from magic-routering
 
 ```javascript
@@ -130,6 +142,9 @@ those only if you need to override the default behaviors.
 ![Alt text](./Readme/user_get_invalidId.png "Get user with invalid id - exception handling")
 
 ### Release version
+
+#### 1.1.1 : Add global Prefix for routing.
+* Adding global prefix for routing in magic-router. [Usage example from test](./test/example/prefixController.js)
 
 #### 1.0.9 : Default index router
 * Automatically/default add router for "index" action. eg: invoke index method in controller by

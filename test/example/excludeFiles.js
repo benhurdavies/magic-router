@@ -104,3 +104,5 @@ describe('exclude some controller test', () => {
       });
   });
 });
+
+export const testServer = getServer;
