@@ -4,6 +4,7 @@ import path from 'path';
 
 import loadFile from './loadFile';
 import caller from './caller';
+import Helper from './utility/helper';
 
 const pack = require(path.join(__dirname, '..', 'package'));
 
@@ -16,8 +17,9 @@ const DEFAULT_CONTROLLER_ROUTE_METHOD = 'index';
 class magicRouter {
   constructor() {
     this.defaultOptions = {
-      dirPath: '',
+      dirPath: './controllers',
       exclude: [],
+      prefix: '',
     };
     this.options = null;
     this.app = null;
@@ -64,7 +66,12 @@ class magicRouter {
 
     for (let _module in handler) {
       // adding before controller middlewares to routing
-      this.addBeforeControllers(handler[_module], controllerName, app);
+      let prefix = Helper.getRoutePrefix({ ...this.options });
+      this.addBeforeControllers(
+        handler[_module],
+        `${prefix}${controllerName}`,
+        app
+      );
 
       let additionalRoutes = [];
 
@@ -72,7 +79,7 @@ class magicRouter {
         if (typeof handler[_module][property] === 'function') {
           let methodRoute = this.getRouterConfig(handler[_module], property);
           let requestType = this.getRequestType(handler[_module], property);
-          let fullRoute = `/${controllerName}/${methodRoute}`;
+          let fullRoute = `/${prefix}${controllerName}/${methodRoute}`;
 
           //adding before Action middlewares to routing
           this.addBeforeActions(
@@ -100,7 +107,7 @@ class magicRouter {
             additionalRoutes.push({
               method: this.addDefaultIndexRoutes,
               args: [
-                controllerName,
+                `${prefix}${controllerName}`,
                 methodRoute,
                 requestType,
                 handler[_module][property],
