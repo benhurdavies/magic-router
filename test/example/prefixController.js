@@ -6,6 +6,7 @@ import { testServer } from './excludeFiles';
 
 const expect = chai.expect;
 const should = chai.should();
+
 let _port = 3500;
 
 describe('prefix on route', () => {
@@ -20,8 +21,8 @@ describe('prefix on route', () => {
 
   after(done => server.close(done));
 
-  it('/api/user/get', done => {
-    _req.get('/api/user/get').end((err, res) => {
+  it('/api/user/default', done => {
+    _req.get('/api/user/default').end((err, res) => {
       res.should.have.status(200);
       res.body.msg.should.equal('hello user');
       res.body.name.should.equal('user');
@@ -31,8 +32,8 @@ describe('prefix on route', () => {
     });
   });
 
-  it('/user/get request failer', done => {
-    _req.get('/user/get').end((err, res) => {
+  it('/user/default request failer', done => {
+    _req.get('/user/default').end((err, res) => {
       res.should.have.status(200);
       res.body.msg.should.equal('no router defined');
       done();
@@ -54,6 +55,14 @@ describe('prefix on route', () => {
     _req.get('/user').end((err, res) => {
       res.should.have.status(200);
       res.body.msg.should.equal('no router defined');
+      done();
+    });
+  });
+
+  it('/api/auth => prefix => for default get routing', done => {
+    _req.get('/api/auth').end((err, res) => {
+      res.should.have.status(200);
+      res.body.msg.should.equal('Please login');
       done();
     });
   });

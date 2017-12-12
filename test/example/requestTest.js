@@ -13,8 +13,8 @@ describe('route URL test', () => {
 
   after(done => server.close(done));
 
-  it('/user/get', done => {
-    _req.get('/user/get').end((err, res) => {
+  it('/user/default', done => {
+    _req.get('/user/default').end((err, res) => {
       res.should.have.status(200);
       res.body.msg.should.equal('hello user');
       res.body.name.should.equal('user');
@@ -54,6 +54,22 @@ describe('route URL test', () => {
       res.body[1].id.should.equal(2);
       // checking beforeController worked or not
       res.header.beforecontroller.should.equal('controllerLogger1');
+      done();
+    });
+  });
+
+  it('/auth =>  for default get routing', done => {
+    _req.get('/auth').end((err, res) => {
+      res.should.have.status(200);
+      res.body.msg.should.equal('Please login');
+      done();
+    });
+  });
+
+  it('/auth/get =>  for default get routing', done => {
+    _req.get('/auth/get').end((err, res) => {
+      res.should.have.status(200);
+      res.body.msg.should.equal('Please login');
       done();
     });
   });

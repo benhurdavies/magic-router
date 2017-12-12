@@ -21,7 +21,8 @@ npm install --save magic-router
 
 All the controllers in the controller folder are loaded and the default routes are configured automatically by the magic-router.
 
-> The default router will be : Hostname/controller(controller filename without extension)/action(method name)
+* The default router will be : Hostname/controller(controller filename without extension)/action(method name)
+* if the action/method name in controller file have the name of `index` or `get` (default index routing) it have default as Hostname/controller too. if a controller have multiple `default index routing` action/method name in a file this feature will not work
 
 From app.js
 
@@ -141,7 +142,7 @@ those only if you need to override the default behaviors.
 
 ![Alt text](./Readme/user_get_invalidId.png "Get user with invalid id - exception handling")
 
-### Release version
+### Release version (current v1.1.2)
 
 #### 1.1.1 : Add global Prefix for routing.
 * Adding global prefix for routing in magic-router. [Usage example from test](./test/example/prefixController.js)

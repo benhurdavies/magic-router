@@ -12,7 +12,7 @@ const ROUTER_NAME = 'router';
 const TYPE_NAME = 'type';
 const BEFORE_CONTROLLER_NAME = 'beforeController';
 const BEFORE_ACTION_NAME = 'beforeAction';
-const DEFAULT_CONTROLLER_ROUTE_METHOD = 'index';
+const DEFAULT_CONTROLLER_ROUTE_METHOD = ['index', 'get'];
 
 class magicRouter {
   constructor() {
@@ -101,8 +101,11 @@ class magicRouter {
 
           //index default routing
           if (
-            methodRoute.toLowerCase() ===
-            DEFAULT_CONTROLLER_ROUTE_METHOD.toLowerCase()
+            Helper.check_DEFAULT_CONTROLLER_ROUTE_METHOD(
+              DEFAULT_CONTROLLER_ROUTE_METHOD,
+              methodRoute,
+              handler[_module]
+            )
           ) {
             additionalRoutes.push({
               method: this.addDefaultIndexRoutes,

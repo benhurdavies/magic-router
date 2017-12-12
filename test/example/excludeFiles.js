@@ -9,6 +9,7 @@ import magicRouter from '../../src/magic-router';
 
 const expect = chai.expect;
 const should = chai.should();
+
 let _port = 3500;
 
 // creating custom server
@@ -46,9 +47,8 @@ describe('include all controller test', () => {
 
   after(done => server.close(done));
 
-  it('/user/get', done => {
-    _req.get('/user/get').end((err, res) => {
-      console.re;
+  it('/user/default', done => {
+    _req.get('/user/default').end((err, res) => {
       res.should.have.status(200);
       res.body.msg.should.equal('hello user');
       res.body.name.should.equal('user');
@@ -82,8 +82,8 @@ describe('exclude some controller test', () => {
 
   after(done => server.close(done));
 
-  it('/user/get', done => {
-    _req.get('/user/get').end((err, res) => {
+  it('/user/default', done => {
+    _req.get('/user/default').end((err, res) => {
       res.should.have.status(200);
       res.body.msg.should.equal('hello user');
       res.body.name.should.equal('user');
