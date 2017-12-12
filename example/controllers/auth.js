@@ -3,6 +3,10 @@ export default {
     login: 'post',
   },
 
+  get(req, res) {
+    res.send({ msg: 'Please login' });
+  },
+
   // this will access by /auth/login as POST request
   login(req, res) {
     const { email, password } = req.body;

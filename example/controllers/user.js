@@ -12,7 +12,7 @@ export default {
   },
 
   type: {
-    get: 'get',
+    default: 'get',
   },
 
   beforeAction: {
@@ -26,8 +26,8 @@ export default {
     res.send([{ id: 1, name: 'user1' }, { id: 2, name: 'user2' }]);
   },
 
-  // this method can access by /user/get
-  get(req, res) {
+  // this method can access by /user/default
+  default(req, res) {
     res.send({ msg: 'hello user', name: 'user' });
   },
 
