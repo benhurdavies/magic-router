@@ -142,7 +142,7 @@ those only if you need to override the default behaviors.
 
 ![Alt text](./Readme/user_get_invalidId.png "Get user with invalid id - exception handling")
 
-### Release version
+### Release version (current v1.1.2)
 
 #### 1.1.1 : Add global Prefix for routing.
 * Adding global prefix for routing in magic-router. [Usage example from test](./test/example/prefixController.js)
