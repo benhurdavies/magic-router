@@ -7,7 +7,7 @@
     "lint": "eslint --ignore-path .gitignore .",
     "precommit": "lint-staged",
     "build": "rimraf /distribution && babel ./src --out-dir distribution/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "start": "babel-node ./example/server.js",
     "test": "mocha --require babel-core/register --recursive --exit"
   },
