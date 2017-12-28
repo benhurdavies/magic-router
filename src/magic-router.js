@@ -63,8 +63,13 @@ class magicRouter {
     if (typeof handler !== 'object') {
       throw Error('Expected an object');
     }
-
+    const _backupControllerName = controllerName;
     for (let _module in handler) {
+      controllerName = Helper.getControllerName(
+        handler,
+        _module,
+        _backupControllerName
+      );
       // adding before controller middlewares to routing
       let prefix = Helper.getRoutePrefix({ ...this.options });
       this.addBeforeControllers(
