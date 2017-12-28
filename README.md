@@ -71,6 +71,7 @@ The developers need to focus only on the controllers.
 ## How to write a controller
 
 * Controller should be an object.
+* If a controller file have multiple modules exported, it choose controller name as module export name. [usage example](./example/controllers/mutilpeExportSample.js)
 
 ```javascript
 export default {
@@ -142,7 +143,10 @@ those only if you need to override the default behaviors.
 
 ![Alt text](./Readme/user_get_invalidId.png "Get user with invalid id - exception handling")
 
-### Release version (current v1.1.2)
+### Release version (current v1.1.3)
+
+#### 1.1.3 : Controller Name logic change
+* If a controller file have multiple modules exported, it choose controller name as module export name.
 
 #### 1.1.1 : Add global Prefix for routing.
 * Adding global prefix for routing in magic-router. [Usage example from test](./test/example/prefixController.js)
