@@ -143,7 +143,7 @@ those only if you need to override the default behaviors.
 
 ![Alt text](./Readme/user_get_invalidId.png "Get user with invalid id - exception handling")
 
-### Release version (current v1.1.3)
+### Release version (current v1.1.4)
 
 #### 1.1.3 : Controller Name logic change
 * If a controller file have multiple modules exported, it choose controller name as module export name.
