@@ -9,10 +9,7 @@ export default {
 
   router: {
     getUser: 'get/:id',
-  },
-
-  type: {
-    default: 'get',
+    defaultId: 'default/:id',
   },
 
   beforeAction: {
@@ -29,6 +26,11 @@ export default {
   // this method can access by /user/default
   default(req, res) {
     res.send({ msg: 'hello user', name: 'user' });
+  },
+
+  // this method can access by /user/default/:id
+  defaultId(req, res) {
+    res.send({ msg: 'have id too', id: req.params['id'] });
   },
 
   // can access by /user/get/:id => eg: /user/get/5

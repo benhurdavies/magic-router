@@ -24,6 +24,17 @@ describe('route URL test', () => {
     });
   });
 
+  it('/user/default/:id', done => {
+    _req.get('/user/default/1').end((err, res) => {
+      res.should.have.status(200);
+      res.body.msg.should.equal('have id too');
+      res.body.id.should.equal('1');
+      // checking before_Controller worked or not
+      res.header.beforecontroller.should.equal('controllerLogger1');
+      done();
+    });
+  });
+
   it('/user/get/:id by id', done => {
     _req.get('/user/get/5').end((err, res) => {
       res.should.have.status(200);
