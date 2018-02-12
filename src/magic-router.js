@@ -236,12 +236,15 @@ class RequestType {
   static DELETE() {
     return 'delete';
   }
+  static ALL() {
+    return 'all';
+  }
 
   static getRequestType(name) {
     let lowerCaseName = name ? name.toLowerCase() : name;
     switch (lowerCaseName) {
       case null:
-        return this.USE();
+        return this.ALL();
       case 'use':
         return this.USE();
       case 'get':
@@ -254,6 +257,8 @@ class RequestType {
         return this.PATCH();
       case 'delete':
         return this.DELETE();
+      case 'all':
+        return this.ALL();
       default:
         throw Error('invalid request type');
     }
