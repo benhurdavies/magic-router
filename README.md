@@ -23,6 +23,7 @@ All the controllers in the controller folder are loaded and the default routes a
 
 * The default router will be : Hostname/controller(controller filename without extension)/action(method name)
 * if an action/method name in controller file have the name of `index` or `get` (default index routing) it have default routing as `Hostname/controller` too. if a controller have multiple `default index routing` names as action/method name in a file this feature will not work.
+* Default router method used is `all` (`app.all()` in express) from version 1.1.5 onwards. (before `use` method was used)
 
 From app.js
 
@@ -87,7 +88,7 @@ export default {
   // OPTIONAL
   // type is optional for customizing the request type for methods.
   // It can be 'get', 'post' or any verb. 
-  // default will be 'use' as in app.use(...
+  // default will be 'all' as in app.all(...
   type: {
     // type overrides will come here  <methodname>:<verb> 
     foo: 'get',   
@@ -143,7 +144,7 @@ those only if you need to override the default behaviors.
 
 ![Alt text](./Readme/user_get_invalidId.png "Get user with invalid id - exception handling")
 
-### Release version (current v1.1.4)
+### Release version (current v1.1.5)
 
 #### 1.1.3 : Controller Name logic change
 * If a controller file have multiple modules exported, it choose controller name as module export name.
